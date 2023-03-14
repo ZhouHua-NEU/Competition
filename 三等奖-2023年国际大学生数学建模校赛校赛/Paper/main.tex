@@ -1,0 +1,542 @@
+\documentclass{mcmthesis}
+\mcmsetup{
+tcn = JS06012023145, problem = B,        %% tcn is team control number
+titleinsummary = true,             %% title appears on summary sheet
+}                                  %% true 改为 false 则标题不出现在 summary sheet
+
+%%%% 可选几种字体数学公式
+\usepackage{mathptmx}     %% 数学公式罗马字体,对公式和正文都起作用
+%\usepackage{txfonts}      %% 数学公式罗马字体,对公式和正文都起作用
+%\usepackage{mathpazo}     %% COMAP 官方版物字体,对公式和正文都起作用
+
+%%%% 几个国际标准数学符号
+\providecommand{\diff}{\mathop{}\!\mathrm{d}} %% 微分符号,正体 d
+\providecommand{\me}{\mathrm{e}}              %% 无理数,正体 e
+\providecommand{\mi}{\mathrm{i}}              %% 虚数单位,正体 i
+
+%%%%设置目录节标题后加点
+\usepackage[titles]{tocloft}
+\renewcommand\cftsecdotsep{\cftdotsep}
+
+\renewcommand{\appendixpagename}{\Large\bfseries Appendices}
+
+%%%%%定制Synopsis页目录
+%%%%%根据需要把Synopsis改为Memo or Handout等等
+\fancypagestyle{Synopsis}{
+\fancyhf{}
+\lhead{\sffamily \team}
+\rhead{\sffamily Synopsis}
+}
+
+
+%%%%论文题目
+\title{\bfseries Forecasting models for Europe's four largest Economies based on the ARIMA model}
+%\title{\bfseries Yearly meeting outlines 2023 growth plans}
+
+\usepackage{float}
+\begin{document}
+
+%%%%%Summary Sheet内容
+\begin{summary}
+With the increasing improvement of residents' living standards, the demand for electricity is increasing, but the traditional power generation method is more costly and polluting, so new energy power generation with green environmental protection and lower cost characteristics have attracted the EU and many countries near it to invest in the development of new energy power generation. In order to better understand the current situation of electricity in the EU and neighboring countries and the production characteristics of different energy sources, two relevant models were established according to the data provided in the annex, \textbf{Model one: ARIMA model}, which can analyze and predict time series data; \textbf{Model two: Power structure model,} convenient to understand energy production and consumption more intuitively.
+
+\textbf{In response to the first question}: the data was preprocessed, and the four representative countries of the European Union,\textbf{ Germany, the United Kingdom, France, and Italy,} were selected to take the three indicators of these four countries, \textbf{load, wind power generation, and solar power generatio}n as the research objects. Twelve sets of data are \textbf{added to one data in "weeks"}, and the data of seven days is added to one data to obtain a new twelve sets of data, and the resulting data is visualized. The production and digestion of energy visualized by data is cyclical, with electricity consumption and wind power generation peaking at the beginning of the year and troughing in the second half of the year, while solar power generation is the opposite. And the investment and application of new energy power generation are expanding.
+
+\textbf{In response to the second question}: the figure obtained by visualizing the data of the first question is selected from the German part, and through observation and analysis, \textbf{Germany pays more attention to wind power generation}, and the proportion of wind power generation far exceeds the proportion of solar power generation. Among them, solar power generation shows a weak state in spring and strong summer, while wind energy is the opposite. \textbf{Germany attaches great importance to new energy power generation and is constantly increasing investment in the development of new energy power generation.
+}
+\textbf{Aiming at the third problem}: the final data obtained from problem one is determined by the bic method to determine the model parameters, establish the \textbf{ARIMA model}, and make fitting predictions, and it is found that \textbf{the energy power consumption is increasing} year by year, and the change of energy power consumption shows seasonal changes, so it is predicted that the future energy power consumption will continue to increase year by year, and the power consumption change is periodic.
+
+\textbf{Aiming at the fourth problem}: establish the power structure model. The suggestions for the future sustainable development of China's power energy through the model are mainly\textbf{ pay attention to the problem of seasonal strength of energy, consider its stability, and mainly develop solar power generation; Protect the environment and reduce pollution, which can make new energy power generation sustainable.}
+
+\textbf{Finally}, we summarize the advantages and disadvantages of the model.
+
+
+\noindent\textbf{Key Words:}
+\textbf{ARIMA};\textbf{Four largest economies in Europe};\textbf{Time series analysis}.
+\end{summary}
+
+%%%%Generate the summary sheet
+\maketitle
+
+\newpage
+\tableofcontents
+
+%%%%论文正文开始
+\newpage
+\setcounter{page}{1}
+\section{Restatement and Clarification of the Problem}
+
+\subsection{Problem Background}
+
+ \textbf{The rise in global temperature} is a serious problem. In 2020, the latest report released by \textbf{the United Nations Environment Program} shows that if the emission reduction of carbon dioxide is not sustainable, the global temperature is expected to rise by about \textbf{3.2}  by 2100 if the current global emission trend cannot be reversed.
+
+If temperatures continue to rise, it will lead to sea level rise, coastline erosion, climate change, extreme weather, ocean acidification, biodiversity loss, and other serious consequences.
+
+On December 12, 2015, nearly 200 Parties to the United Nations Framework Convention on Climate Change (\textbf{UNFCCC}) reached the Paris Agreement at the Paris Climate Change Conference. It is the second legally binding climate agreement after the Kyoto Protocol, setting out arrangements for global action on climate change after 2020.
+
+To zchieve the goals of the Paris Agreement,  countries must meet their emissions reduction targets by \textbf{2030}.
+
+To reduce carbon dioxide emissions, countries must take measures, including using renewable energy, improving energy efficiency and reducing energy waste. \textbf{New energy} is a kind of renewable energy, using it can reduce carbon dioxide emissions, so as to achieve emission reduction targets. All countries are promoting the development of new energy, and China is no exception.
+
+\subsection{Restatement of the Problem}
+\begin{itemize}
+  \item Select appropriate countries and indicators, \textbf{visualize} the data of these countries, and carry out \textbf{statistical description}.%选取合适的国家和指标,对这些国家的数据进行可视化,并进行统计学描述.
+  \item Analyze the \textbf{energy situation} in Germany, including energy production and consumption, as well as energy structure.%对德国的能源现状进行分析,包括能源的产量和消耗,以及能源的结构.
+  \item The\textbf{ ARIMA} model was used to model and forecast energy consumption in four countries.%使用ARIMA模型对四个国家的能源消耗进行建模并进行预测预测.
+  \item To make\textbf{ feasible suggestions }on China's energy development.%对中国的能源发展提出可行性的建议.
+\end{itemize}
+
+\subsection{Related Work}
+%我们选取了德国、法国、英国、意大利欧洲四大经济体的load,wind,solar数据,对缺失的数据进行临近填充,然后将一周的数据相加,得到一周的总用电量,然后对这些数据进行可视化,分析这些数据的趋势,以及这些数据的统计学描述.
+%然后我们对这些数据进行ARIMA模型的建模,对未来的数据进行预测,得到了预测的结果.并且计算出风能和太阳能占的比例,通过对数据的分析,我们得到了德国、法国、英国、意大利的能源发展情况,以及他们的能源结构,从而为中国的能源发展提供了参考.
+
+We selected the data of the total power\textbf{ load}, \textbf{wind} energy capacity and \textbf{solar }energy capacity of the four European economies of \textbf{Germany},\textbf{ France,} \textbf{the UK} and \textbf{Italy}, approached and filled the missing data, then added the data of a week to obtain the total power consumption of a week, and then visualized the data, analyzed the trend of these data and the statistical description of these data.
+
+Finally, we modeled the\textbf{ ARIMA model} on these data, predicted the future data, and got the predicted results. Moreover, \textbf{the proportion of wind energy and solar energy} was calculated. By analyzing the data, we obtained the energy development situation of Germany, France, Britain and Italy, as well as their energy structure, thus providing a reference for China's energy development.
+\section{Assumptions}
+\begin{itemize}
+  \item Suppose energy development in these countries follows a \textbf{similar trend} to energy development in China.%假设这些国家的能源发展情况和中国的能源发展情况有着相似的趋势.
+  \item Suppose that the statistical data and the actual situation of the error is small.%假设统计的数据与实际情况的误差很小.
+  \item Suppose that all the data generated from wind and solar energy can \textbf{be used for} all the electricity consumed.%假设生产的风能和太阳能的数据能够全部用于消耗的电量.
+\end{itemize}
+
+
+\section{Solution to problems one and two}
+\subsection{Selection of data}
+%根据附件中的数据,由于欧洲最重要的四大经济体是德国,法国,英国,意大利.因此本文初步选取了这四大经济体的数据作为指标,其中数据中重要指标为电量消耗量、风能发电量,还有太阳能发电量.所以最终以德国,法国,英国,意大利四个国家的电量消耗量、风能发电量、太阳能发电量作为指标.
+
+According to the data in the annex, the four \textbf{most important economies in Europe are Germany, France, Britain and Italy}. Therefore, this paper preliminarily selects the data of these four economies as indicators, among which the important indicators are \textbf{electricity consumption, wind power generation and solar power generation}. Therefore, electricity consumption, wind power generation and solar power generation of four countries in Germany, France, Britain and Italy are finally taken as indicators.
+
+\subsection{Preprocessing of data}
+\subsubsection{Redundant data processing}
+%数据中除了主要选取出来的四个国家的三个指标,其余数据均冗余,因此首先将冗余数据去掉,只留下主要数据.
+
+Data is redundant except for three indicators for the four countries that are mainly selected, so the \textbf{redundant data is removed first}, leaving only the main data.
+\subsubsection{Missing value handling}
+Some of the data obtained are missing. Therefore, this article mainly uses the following two methods for filling:
+\begin{itemize}
+  \item \textbf{Fill forward}: If adjacent data before the missing value is known, the current missing value is filled with the value of the most recent point in time that occurred before the missing value.%向前填充:若缺失值之前相邻的数据已知,则用缺失值之前出现的最近一个时间点的数值来填补当前缺失值.
+  \item \textbf{Fill backward}: If adjacent data after the missing value is known, the current missing value is filled with the value of the most recent point in time after the missing value.%向后填充:若缺失值之后相邻的数据已知,则用缺失值之后出现的最近一个时间点的数值来填补当前缺失值.
+\end{itemize}
+
+\subsubsection{Data summation}
+Due to the large amount of data, it is not convenient for subsequent calculation and processing, so the unit of data is adjusted to "week", and \textbf{the seven days of data are added} to one data to facilitate the calculation and processing of subsequent steps.
+
+\subsection{Data visualization}
+\subsubsection{Data analysis}
+%对德国、法国、英国、意大利每个国家的load,wind,solar共12列数据进行统计学描述,结果如表\ref{1}.
+
+A total of 12 columns of data in load, wind and solar in Germany, France, the United Kingdom and Italy are \textbf{statistically described}, and the results are shown in Table \ref{51}.
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrrrrrr}
+  \toprule
+  {} &       mean &        std &        min &        25\% &        50\% &         75\% &         max \\
+  \midrule
+  DE\_load      &   9322720 &   632180 &  7606589 &  8873762 &  9232235 &   9893328 &  10615559 \\
+  GB\_load  &   6024632 &   707406 &  4383687 &  5521369 &  5989524 &   6547590 &   7731714 \\
+  FR\_load      &   8946211 &  1686922 &  6677841 &  7581573 &  8190058 &  10353212 &  13833295 \\
+  IT\_load      &    5525223 &   522808 &  3781176 &  5251056 &  5581657 &   5844042 &   7084973 \\
+  DE\_wind      &    1941040 &  1046355 &   384722 &  1161218 &  1696890 &   2399503 &   5422745 \\
+  GB\_wind      &     797453 &   326031 &   195828 &   555531 &   748424 &   1016426 &   1865012 \\
+  FR\_wind      &     494754 &   264891 &   160169 &   302618 &   408182 &    620905 &   1421572 \\
+  IT\_wind      &    297852 &   172591 &    37968 &   148961 &   289064 &    424828 &    794476 \\
+  DE\_solar     &     765529 &   452286 &    85288 &   301662 &   807149 &   1150790 &   1748022 \\
+  GB\_solar &     198943 &   115671 &    14810 &    93286 &   203773 &    283161 &    518585 \\
+  FR\_solar     &    186310 &    89293 &    45054 &   102277 &   183155 &    245890 &    398677 \\
+  IT\_solar     &     335531 &   150266 &   105260 &   181454 &   344430 &    472352 &    606836 \\
+  \bottomrule
+  \end{tabular}
+  \caption{Describe of variable}
+  \label{51}
+\end{table}
+
+%从表格中可以看出,德国的消耗的电量,风能和太阳能发电量都遥遥邻先于其他三个国家,为了进一步了解数据的分布情况,绘制12个指标的箱型图如图\ref{1}.
+
+As can be seen from the table, Germany's electricity consumption, wind and solar power generation are far ahead of the other three countries, in order to further understand the distribution of the data, \textbf{a box plot of 12 indicators} is plotted as shown in Figure \ref{7}.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.25]{figures/7.png}
+    \caption{Box plot of indicators for four countries}
+    \label{7}
+    \end{figure}
+    
+    The \textbf{total load }distribution interval of the four countries is relatively wide. The load of Germany is stable and fluctuates within a small range; the load of Britain fluctuates within a large range; and the load of France, although it is low most of the time, fluctuates within a large range and a high range. There are many outliers in the load data of Italy, and the load distribution is relatively concentrated with stable fluctuation.
+
+    The \textbf{wind power} generation data fluid in Germany fluctuates greatly, which may be due to the wind power instability affected by climate. The wind power generation data in Britain is more stable than that in Germany, and the value is smaller. The wind power generation data in Britain may be less relevant facilities. Italy also has a high concentration of wind power, which also generates very little.
+    
+    The data of \textbf{solar power }generation in Germany is relatively concentrated, and the solar power technology in Germany may be in the development stage. The data of solar power generation in the UK is smaller and more concentrated than that of wind power generation, indicating that the solar power technology in the UK is relatively backward. The distribution of solar and wind power in Italy is similar, and the development of the two energy sources is relatively synchronous.
+
+
+\subsubsection{Energy trends in different countries}
+%选取德国,法国,英国,意大利的以一周为单位电量消耗数据,绘制折线图,绘制的图片见\ref{1},
+
+Select the \textbf{electricity consumption data of Germany, France, the United Kingdom, and Italy in a weekly unit}, draw a line chart, and see \ref{1} for the picture.
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.35]{figures/1.png}
+  \caption{Load in four countries}
+  \label{1}
+  \end{figure}
+
+%由图中可以看出,数据呈现出周期性波动,并且德国、法国、英国在每年年初电量消耗量达到峰值,在下半年电量消耗量达到低谷.而意大利与其他三个国家不同,电量消耗量的峰值出现在年中,而低估值出现时间大多为下半年.其中,法国的耗电量曲线波动较大,且峰值为四个国家中最高的,但低谷低于德国的低谷高于其余两个国家的峰值和低谷；德国的耗电量位居第二,有明显的曲线波动；英国的耗电量位居第三,意大利的耗电量位居第四,两个国家的耗电量曲线波动较小.
+
+\textbf{As can be seen from the Figure 2}, the data shows cyclical fluctuations, and Germany, France, and the United Kingdom peak their electricity consumption at the beginning of each year and reach a trough in the second half of the year. Unlike Italy, unlike the other three countries, electricity consumption peaked in the middle of the year, while low valuations mostly occurred in the second half of the year. Among them, France's electricity consumption curve fluctuates greatly, and the peak is the highest among the four countries, but the trough is lower than that of Germany, which is higher than the peak and trough of the remaining two countries; Germany has the second highest electricity consumption and has a clear curve fluctuation; The UK is in third place in electricity consumption and Italy is in fourth place, with both countries having less fluctuating consumption curves.
+
+
+
+%选取德国,法国,英国,意大利的以一周为单位的风能发电量数据,绘制折线图,绘制的图片见\ref{2},
+
+\textbf{Wind energy generation data in one week from Germany, France, the United Kingdom, and Italy}, draw a line chart, see \ref{2} for the picture.
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.35]{figures/2.png}
+  \caption{Wind in four countries}
+  \label{2}
+  \end{figure}
+
+%由图可以看出,数据呈周期性波动,并且呈现逐年上升的趋势.意大利2015.1-2015.9间的曲线呈现直线的原因是这一期间的数据缺失,采用了向后填充的缺失值处理方法,导致这一期间的曲线是一条直线.从曲线图的总体趋势可以得出,国家利用风能发电的发电量由高到低的排序是德国、英国、法国、意大利.其中德国的风能发电量的曲线图有较大的波动并且峰值均远远高出其他三个国家的峰值,且上升趋势均高于其他三个国家.由此可以看出德国对于风能发电的投入和应用远远高出其他三个国家.四个国家风能发电量的峰值均出现在每一年年初,低谷均出现在年中.
+
+\textbf{As can be seen from the Figure 3}, the data fluctuates periodically and shows an upward trend year by year. The reason why the curve between Italy 2015.1 and 2015.9 shows a straight line is that the data in this period is missing, and the backward filling missing value processing method is used, resulting in the curve in this period being a straight line. From the overall trend of the graph, it can be concluded that the country's power generation using wind energy in descending order is Germany, the United Kingdom, France, and Italy. Among them, the curve of wind energy generation in Germany has large fluctuations and peaks are much higher than the peaks of the other three countries, and the upward trend is higher than that of the other three countries. It can be seen that Germany's investment and application of wind power generation is much higher than that of the other three countries. Peaks in wind power generation in all four countries occur at the beginning of each year, and troughs occur in the middle of the year.
+
+
+%选取德国,法国,英国,意大利的以一周为单位的太阳能发电量数据,绘制折线图,绘制的图片见\ref{3},
+
+Select the \textbf{solar power generation data of Germany, France, the United Kingdom, and Italy in one week}, draw a line chart, and see \ref{3} for the picture.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.35]{figures/3.png}
+  \caption{Solar in four countries}
+  \label{3}
+  \end{figure}
+
+%由图可以看出,数据呈周期性波动,并且呈现逐年上升的趋势.意大利2015.1-2015.9间的曲线呈现直线的原因是这一期间的数据缺失,采用了向后填充的缺失值处理方法,导致这一期间的曲线是一条直线.从曲线图的总体趋势可以得出,国家利用太阳能发电的发电量由高到低的排序是德国、意大利、英国、法国.其中德国的太阳能发电量的曲线图有较大的波动并且峰值均远远高出其他三个国家的峰值,且上升趋势均高于其他三个国家.由此可以看出德国对于太阳能发电的投入和应用远远高出其他三个国家.而其余三个国家曲线图的上升趋势中,英国和法国的上升趋势较为明显,意大利的上升趋势较为平缓.四个国家太阳能发电量的峰值均出现在每一年年中,低谷均出现在年初.
+
+\textbf{As can be seen from the Figure 4}, the data fluctuates periodically and shows an upward trend year by year. The reason why the curve between Italy 2015.1 and 2015.9 shows a straight line is that the data in this period is missing, and the backward filling missing value processing method is used, resulting in the curve in this period being a straight line. From the overall trend of the graph, it can be concluded that the country's electricity generation using solar power in descending order is Germany, Italy, the United Kingdom, and France. Among them, the curve of solar power generation in Germany has large fluctuations, and the peaks are much higher than the peaks of the other three countries, and the upward trend is higher than that of the other three countries. It can be seen that Germany's investment and application of solar power generation is much higher than that of the other three countries. Among the other three country charts, the upward trend is more pronounced in the United Kingdom and France, and the upward trend in Italy is relatively flat. Solar power peaks occur in the middle of each year and troughs occur at the beginning of each year in all four countries.
+
+\subsubsection{Analysis of the country's energy mix}
+%选取每个国家的电量消耗量,风能发电量,太阳能发电量,分别绘制折线图,绘制的图片见\ref{4},
+
+Select \textbf{each country's electricity consumption, wind power generation, solar power generation}, draw a line chart separately, and see \ref{4} for the picture drawn,
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.35]{figures/4.png}
+  \caption{Four countries of load, wind, solar}
+  \label{4}
+  \end{figure}
+%由图可以看出德国的耗电量曲线较为平稳,无太大波动,风能发电占比较大,同时风能发电量和太阳能发电量呈逐年上升的趋势,但风能发电的上升趋势相比于太阳能发电的上升趋势要更大,由此可以看出德国在风能发电上的投资高于在太阳能发电上的投资.
+%英国的耗电量曲线有较为明显的波动周期,且耗电量呈现逐年下降的趋势.风能发电占比较大,同时风能发电量和太阳能发电量呈逐年上升的趋势,并且风能发电的上升趋势相比于太阳能发电的上升趋势要更大,但风能发电和太阳能发电的曲线大致都较为平缓.由此可以看出法国在风能发电上的投资高于在太阳能发电上的投资.
+%法国的耗电量曲线有较为明显的波动周期,且波动幅度较大,由此可以看出法国的耗电具有较为明显的季节性.风能发电占比较大,同时风能发电量和太阳能发电量呈逐年上升的趋势,并且风能发电的上升趋势相比于太阳能发电的上升趋势要更大,但风能发电和太阳能发电的曲线大致都较为平缓.由此可以看出法国在风能发电上的投资高于在太阳能发电上的投资,但是在两者上的投资都不是很大.
+%意大利的耗电量曲线有较为明显的波动,且波动幅度较大,属于震荡波动.太阳能发电占比较大,同时风能发电量和太阳能发电量呈逐年上升的趋势,但风能发电和太阳能发电的曲线呈现此消彼长的状态,二者的曲线都比较平缓,但都具有周期性.由此可以看出法国风能发电和太阳能发电互补,并且意大利在太阳能上的投资稍大于风能.
+
+\textbf{It can be seen from the Figure 5} that Germany's power consumption curve is relatively stable, without much fluctuation, wind energy accounts for a relatively large proportion of power generation, while wind power generation and solar power generation show a rising trend year by year, but the upward trend of wind power generation is greater than the upward trend of solar power generation, which shows that Germany's investment in wind power generation is higher than that in solar power generation.
+
+\textbf{The UK's electricity consumption} curve has a more obvious fluctuation cycle, and electricity consumption shows a downward trend year by year. Wind power generation accounts for a relatively large proportion, while wind power generation and solar power generation show a rising trend year by year, and the upward trend of wind power generation is greater than that of solar power generation, but the curve of wind power generation and solar power generation is generally relatively flat. It can be seen that France invests more in wind power generation than in solar power.
+
+\textbf{France's electricity consumption} curve has a more obvious fluctuation cycle, and the fluctuation range is large, which shows that France's electricity consumption has a more obvious seasonality. Wind power generation accounts for a relatively large proportion, while wind power generation and solar power generation show a rising trend year by year, and the upward trend of wind power generation is greater than that of solar power generation, but the curve of wind power generation and solar power generation is generally relatively flat. It can be seen that France invests more in wind power generation than in solar power, but the investment in both is not very large.
+
+\textbf{Italy's electricity consumption} curve has obvious fluctuations, and the fluctuation range is large, which is a shock fluctuation. Solar power generation accounts for a relatively large proportion, while wind power generation and solar power generation show a rising trend year by year, but the curve of wind power generation and solar power generation shows a state of trade-off, both of which are relatively gentle, but both are cyclical. It can be seen that wind power and solar power in France complement each other, and Italy invests slightly more in solar energy than wind energy.
+
+\subsubsection{Analysis of the proportion of wind and solar power}
+%假设风电产生的的电能为$W_{wind}$,太阳能产生的电能为$W_solar$,消耗的总能量为W,首先使用$$\frac{W_{wind}}{W}$$来计算每个国家风能的占比,
+%然后使用$$\frac{W_{solar}}{W}$$来计算每个国家太阳能发电的占比,使用$$\frac{W_{wind}+W_{solar}}{W}$$来计算两种清洁能源的占比.
+
+Assuming that the electricity generated by wind power is $W_{wind}$, the electricity generated by solar energy is $W_solar$, and the total energy consumed is W, first use $$\frac{W_{wind}}{W}$$ to calculate the proportion of wind energy in each country, and then use $$\frac{W_{solar}}{W}$$ to calculate the proportion of solar power in each country, using $$\frac{W_{wind}+W_{solar}}{W}$$ to calculate the proportion of two clean energy sources.
+%使用上面的公式求出4个国家风能占比,太阳能占比,和两种能源的总占比.首先绘制风能和电能的占比图如图5
+
+Use the above formula to find the proportion of wind energy, solar energy, and the total share of the two energy sources in the four countries. First, \textbf{the proportion of wind energy and electricity} is plotted as shown in Figure \ref{5}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.35]{figures/5.png}
+  \caption{Proportion of wind and solar energy}
+  \label{5}
+  \end{figure}
+
+\textbf{As can be seen from the Figure 6}, the data of Germany, the United Kingdom, France and Italy fluctuate cyclically and show a rising trend year by year. Among them, the proportion of wind energy in Germany, France and the United Kingdom is higher than the proportion of solar energy, and the proportion of wind energy and solar energy in Italy is equally divided. And the peaks of the wind energy ratio curve in Germany, France, the United Kingdom, and Italy all correspond to the trough of the solar energy proportion curve. The proportion of wind energy and solar energy in Germany, France and the United Kingdom is increasing year by year, and the proportion of wind energy is rising faster than solar energy. The proportion of wind and solar energy in Italy is generally rising, but the rise is relatively slow, of which solar energy has a large increase in 2020. In general, wind energy is the main energy source for Germany, France and the United Kingdom, and wind and solar energy are the main energy sources for Italy.
+%然后绘制两种能源占总消耗电能的比例如图6.
+
+Then,\textbf{ the proportion of the two energy sources to the total power consumption }is plotted, as shown in Figure \ref{6}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.35]{figures/6.png}
+  \caption{The total share of wind and solar energy}
+  \label{6}
+  \end{figure}
+
+ \textbf{ As can be seen from the Figure 7}, the data generally fluctuates cyclically and shows an upward trend year by year. Among them, Germany's proportion is relatively stable, and the overall rise rate of the proportion curve is relatively flat; The proportion of the United Kingdom and France rose rapidly, but the proportion of France showed a more obvious decline in early 2017, and then showed a rapid rise; Italy's share showed a large fluctuation, and the cyclical nature was more obvious, and the increase in the proportion was small, but in 2020 there was a larger increase.
+
+\subsection{Summary of the current energy situation in Germany}
+%根据前面的分析,可以得出德国当前的能源现状.
+
+Based on the previous analysis, the current energy situation in Germany can be derived.
+
+\textbf{Germany's electricity consumption, wind power generation and solar power generation} show cyclical fluctuations, of which electricity consumption and wind power generation both peak at the beginning of each year, and wind power generation reaches a trough in the second half of the year. And the peak of wind power generation corresponds to the trough of solar power generation, and the trough of wind power generation corresponds to the peak of solar power generation. The trough value of wind power generation and the peak of solar power generation are not much different, which shows that wind power generation is much greater than solar power generation, and Germany attaches great importance to wind power generation.
+
+\textbf{The proportion of wind energy in Germany} is much higher than that of solar energy, and the proportion of wind energy power generation peaks at the beginning of each year, indicating that at the beginning of the year due to climate reasons, Germany has the best wind energy situation, and the proportion in the second half of the year has reached a trough, indicating that the wind is weak at this time and has a strong seasonality. The proportion of solar energy power generation peaks in the second half of each year, indicating that at the beginning of the year due to geographical reasons, Germany's solar energy situation is the best, and the proportion at the beginning of the year reaches a trough, indicating that solar energy is weak at this time and has a strong seasonality.
+
+\textbf{The proportion of wind energy and solar energy in Germany} is on the rise, and the increase is obvious, indicating that Germany attaches great importance to the development of solar and wind energy, and is constantly increasing investment.
+
+
+\section{Solutions of Problem three}
+\subsection{Introduction to ARIMA model}
+\subsubsection*{4.1.1 AR(p)}
+For a time series$\{\xi_t:t\in N\}$,If satisfied, ${xi_t }$ if for any $t in N$
+		\begin{gather}
+		1^{\circ} ~~~~\xi_t=\varphi_1 \xi_{t-1}+ \dots + \varphi_p \xi_{t-p} + \varepsilon_t =\sum_{i=1}^{p} \varphi_i\xi_{t-i}+\varepsilon_t 
+		\\
+		2^{\circ} ~~~~\forall t<s,E(\xi_t\varepsilon _s)=0
+		\end{gather}
+		then $\{\xi_t\}$ satisfies the autoregressive model,where  $p>0, \varphi_{p} \neq 0,\left\{\varepsilon_{t}\right\} $ is White noise, that  $E\left(\varepsilon_{t} \cdot \varepsilon_{s}\right)=0(t \neq s), E \varepsilon_{t}^{2}=\sigma_{\varepsilon}^{2}   >0, \varphi_{i}(i=1,2, \cdots, p) $  is a constant;
+		$p$ is called the order of the autoregressive model. Autoregressive models are denoted by $ \mathrm{AR}(p) $.
+		
+		It is not difficult to see that $\{\xi_t\}$ is a current signal, which is related to the previous $p$ signal, and ${\varepsilon_{t} }$ is the interference of the current signal, it will not interfere with the signal before the current signal.
+		
+		
+		
+		\subsubsection*{4.1.2 MA(q)}
+    If the time series $ \left\{\xi_{i}\right\}  $for any  $ t \in \mathbf{N} $, satisfied that
+		\begin{gather}
+		1^{\circ} ~~~~\xi_{t} =\varepsilon_{t}-\theta_{1} \varepsilon_{t-1}-\cdots-\theta_{q} \varepsilon_{t-q}=-\sum_{i=0}^{q} \theta_{i} \varepsilon_{t-i} 
+ 	\\
+		2^{\circ} ~~~~ \forall  t<s  ,  E\left(\xi_{t} \cdot \varepsilon_{s}\right)=0 .
+		\end{gather}
+		where $\left(\theta_{0}=-1, \theta_{i}(i=1,2, \cdots, q)\right.  $is a constant,,$ \left.\theta_{q} \neq 0\right)$ ;称 $  \left\{\xi_{t}\right\}  $satisfying the slide and model, denoting the above slide and model with MA (q),   q  called the  Order of   $\operatorname{MA}(q) $ .
+		\subsubsection*{4.1.3 ARMA(p,q)}
+    If the time series  $ \left\{\xi_{i}\right\}  $for any $ t \in \mathbf{N} $, satisfiing
+		\begin{gather}
+		1^{\circ} ~~~~ \xi_{t}-\varphi_{1} \xi_{t-1}-\cdots-\varphi_{p} \xi_{t-p} = \varepsilon_{t}-\theta_{1} \varepsilon_{t-1}-\cdots-\theta_{q} \varepsilon_{t-q},
+	\\
+		2^{\circ} ~~~~ \forall  t<s  ,  E\left(\xi_{t} \cdot \varepsilon_{s}\right)=0 .
+		\end{gather}
+    
+		where $ \varphi_{1}, \varphi_{2}, \cdots, \varphi_{p}, \theta_{1}, \theta_{2}, \cdots \theta_{q}  $are constants; $\varphi_{p} \neq 0, \theta_{q} \neq 0 $; 
+		then $ \left\{\xi_{t}\right\}  $Tis called autoregressive sliding and sequence, or called $ \left\{\xi_{t}\right\} $ meeting the autoregressive slide and model. Signed as  $\mathrm{ARMA}(p, q),(p, q) $  is called the order of the model.
+		It's not hard to see $ \operatorname{ARMA}(p,q)$ model is include  $\mathrm{AR}(p)$and $ \mathrm{MA}(q)$.
+		
+\subsubsection*{4.1.4 ARIMA Model}
+
+The ARIMA model introduces differential operations on the basis of ARMA. Let's start with differential operations.\cite{book3}
+		\\
+Subtraction between two sequences separated by one period is called a difference operation of the first order.if $ \nabla x_{t} $ is  First-order difference  of  $x_{t}  $,
+	$$	\nabla x_{t}=x_{t}-x_{t-1}$$
+  Performing another 1st degree difference operation on a sequence after 1st order difference is called 2nd order difference. if $ \nabla^{2} x_{t}  $is  Second-order difference   of  $x_{t} $ ,
+	$$	\nabla^{2} x_{t}=\nabla x_{t}-\nabla x_{t-1}$$
+  By analogy, performing another 1st order difference operation on the p-1 differential sequence is called p-order difference. if  $\nabla^{p} x_{t} $ is  Differential of order p  of  $ x_{t}  $ ,
+	$$	\nabla^{p} x_{t}=\nabla^{p-1} x_{t}-\nabla^{p-1} x_{t-1}$$
+	If $ \mathrm{p} , \mathrm{q} ,\mathrm{~d}  $ is known,$ARIMA(p,d,q)$ can be write as:
+	$$\nabla^{d} y_{t} =\varphi_{0}+\varphi_{1} \nabla^{d} y_{t-1}+\ldots+\varphi_{p}  \nabla^{d} y_{t-p}+\varepsilon-\theta_{1}  \varepsilon_{t-1}-\ldots+\theta_{q}  \varepsilon_{t-q}$$
+	where  $\varphi $ is coefficient of $ AR $ ,  $\varepsilon $ is coefficient of$MA$.
+
+
+
+
+\subsection{Prediction using ARIMA models}
+\subsubsection{Stationary test and white noise test}
+%对得到的十二组数据进行ADF检验，结果显示十二组数据全部通过检验，认为序列平稳；对十二组数据进行白噪声检验，由数据结果易知，
+%统计量的值均不为零，认为数据不是白噪声序列，满足建模条件.
+
+\textbf{The ADF test} was carried out on the twelve sets of data, and the results showed that all the twelve groups of data passed the test and the sequence was considered stable. \textbf{The white noise test} was carried out on twelve sets of data, and it was easy to know from the data results, and the values of the statistics were not zero, and it was considered that the data were not white noise sequences and met the modeling conditions.
+
+\subsubsection{Model building and prediction}
+
+The ARIMA model selection is based on the AIC criterion. \textbf{The AIC criterion} is defined as follows:
+\begin{equation}
+AIC=-2ln(\hat{\sigma}^{2})+2k
+\end{equation}
+where $\hat{\sigma}^{2}$ is the estimated variance of the residual, and k is the number of parameters in the model. The smaller the AIC value, the better the model.
+
+%使用AIC准则求出的12个指标的最合适p，q，d的值如表\ref{53}所示.
+
+\textbf{The most suitable values p,q,d for the 12 indicators} using the AIC criterion are shown in the table \ref{53}. 
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lrrrrrrrr}
+    \toprule
+    {} &  DE\_p &  DE\_q &  FR\_p &  FR\_q &  GB\_p &  GB\_q &  IT\_p &  IT\_q \\
+    \midrule
+    load  &     4 &     0 &     4 &     0 &     4 &     0 &     4 &     1 \\
+    solar &    12 &     3 &     8 &     2 &     8 &     2 &    12 &     2 \\
+    wind  &    12 &     2 &     8 &     2 &     4 &     1 &     4 &     1 \\
+    \bottomrule
+    \end{tabular}
+    \caption{The value of q and p}
+    \label{53}
+  \end{table}
+
+%通过选取的P，q建立ARIMA模型，将其作为预测模型，对未来5个周的数据进行预测，预测的效果如图\ref{8}所示。从图中可以看出，预测的结果与实际数据相差不大，说明模型的预测效果较好。
+
+The ARIMA model is established by selecting p and q, and it is used as a prediction model to predict the data in the next 5 weeks, and \textbf{the prediction effect} is shown in Figure \ref{8}\ref{9}\ref{10}. As can be seen from the figure, the predicted results are not much different from the actual data, indicating that the prediction effect of the model is better.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.25]{figures/8.jpg}
+  \caption{Modeling effect of load in four countries}
+  \label{8}
+  \end{figure}
+
+\textbf{It can be seen from the Figure 8} that Germany, France, and the United Kingdom all peak at the beginning of the year and reach a trough in the second half of the year, Italy, on the contrary, the curve is cyclical and shows a downward trend year by year, so the future power consumption will gradually decrease, and also meet the periodicity of power consumption changes in various countries.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.3]{figures/9.jpg}
+  \caption{Modeling effect of wind in four countries}
+  \label{9}
+\end{figure}
+
+\textbf{It can be seen from the Figure 9} that the power consumption of solar energy in the four countries reached a trough at the beginning of the year and reached a peak in the second half of the year, which is cyclical and shows a trend of rising year by year, so the future power consumption will gradually increase, and also meet the periodicity of reaching the trough at the beginning of the year and reaching the peak in the second half of the year.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.3]{figures/10.jpg}
+  \caption{Modeling effect of solar in four countries}
+  \label{10}
+\end{figure}
+
+\textbf{It can be seen from the Figure 10} that the power consumption of wind energy in the four countries reached a peak at the beginning of the year and reached a trough in the second half of the year, and the curve is cyclical, and shows a trend of rising year by year, so the future power consumption will gradually increase, and also meet the cyclical nature of peaking at the beginning of the year and reaching the trough in the second half of the year.
+
+%在此插入预测结果。
+
+\section{Solutions of Problem four}
+%如果使用太阳能和风能作为衡量一个国家清洁能源的发展，通过ARIMA模型预测未来5个周的数据，可以计算出未来5个周的风能、太阳能的占比，从而建立风能、太阳能的发展指数，通过对比各个国家的发展指数，可以得出各个国家的清洁能源发展情况。
+%，计算的出的结果如表\ref{52}所示。
+
+If solar and wind energy are used to measure the development of a country's clean energy, the data of the next 5 weeks predicted by the ARIMA model can calculate the proportion of wind energy and solar energy in the next 5 weeks, so as to establish the development index of wind energy and solar energy.
+, \textbf{the load of calculated result} is shown in the table \ref{52}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lrrrrrrrrrrrr} 
+    \toprule 
+    {}&DE\_load&FR\_load&GB\_load&IT\_load&DE\_solar&FR\_solar&GB\_solar&IT\_solar\\ 
+    \midrule 
+    0&9113863&7956474&5428871&5408769&794374&197026&189778&356672\\ 
+    1&9133075&8118169&5489428&5480970&650102&174711&161840&313889\\ 
+    2&9170186&8215501&5517979&5486118&469605&161831&160985&326058\\ 
+    3&9198077&8265949&5548643&5483028&431451&142114&153968&289277\\ 
+    4&9216049&8347738&5580324&5493857&457877&111108&131495&275233\\ 
+    \bottomrule 
+    \end{tabular} 
+    \caption{Forecast results after 5 weeks of load and solar energy.}
+    \label{52}
+  \end{table}
+
+  %通过ARIMA即可计算出未来5个周的风能、太阳能的占比，从而建立风能、太阳能的发展指数，通过对比各个国家的发展指数，可以得出各个国家的清洁能源发展情况。德国和法国的计算结果如表\ref{54}所示。
+ 
+  Through ARIMA, the proportion of wind energy and solar energy in the next five weeks can be calculated, so as to establish the development index of wind energy and solar energy, and by comparing the development index of each country, the clean energy development of each country can be obtained.\textbf{ The calculation results for Germany and France }are shown in the table \ref{54}.
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{lrrrrrrrrrrrr}
+      \toprule
+      {}&DE\_solar&DE\_wind&DE\_sw&FR\_solar&FR\_wind&FR\_sw\\
+      \midrule
+      0&0.09&0.19&0.45&0.02&0.07&0.35\\
+      1&0.07&0.16&0.44&0.02&0.07&0.31\\
+      2&0.05&0.21&0.24&0.02&0.07&0.29\\
+      3&0.05&0.19&0.25&0.02&0.07&0.24\\
+      4&0.05&0.21&0.24&0.01&0.07&0.18\\
+      \bottomrule
+      \end{tabular}
+      \caption{Germany and France share clean energy}
+      \label{54}
+    \end{table}
+
+  %通过计算得出的结果，可以建立未来的清洁能源发展模型，通过对比各个国家的发展模型，可以为中国的能源发展提供建议。
+
+Through the results of the calculation, a future clean energy development model can be established, and by comparing the development models of various countries, suggestions can be provided for China's energy development.
+
+\subsection{Wind}
+\subsubsection{Analysis of wind energy resources in China}
+China is one of the world's famous monsoon areas, of which the high value of wind speed is distributed in the Qinghai-Tibet Plateau, the "three north" area and the sea, the Mongolian Plateau and the Loess Plateau are located in the non-monsoon area, the wind direction is stable, especially the Mongolian Plateau The terrain is relatively flat, and it is also one of the three windy areas in China, thus forming a continuous wind speed high value area. The average wind speed in the northeast is relatively large; In the hilly area of Lingnan, large wind speeds scattered on the top of the mountain have formed. The annual average wind speed at sea is significantly greater than that on land, among which the offshore wind energy resources of the Taiwan Strait and Taiwan Island are the most abundant, and the annual average wind speed in the offshore waters of Guangdong, Guangxi and Hainan Island reaches 6.0~7.5 m/s. The average wind speed offshore in winter is highest throughout the year, and its wind is stronger than the summer wind. 
+ 
+On land, the average wind speed is the largest in winter and spring, and the lowest in summer; Average wind speeds are highest in autumn and winter at sea, and relatively small in spring and summer.
+
+\textbf{Therefore}, China's wind energy resources are very rich, and due to the unique geographical advantages, China's wind energy resources will not have great seasonal fluctuations, except for summer, the rest of the seasons have sufficient wind energy resources.
+
+
+\subsubsection{Factors affecting wind energy resources}
+Climate warming will affect the production of wind energy resources, which will decrease as global temperatures rise. Secondly, urbanization and vegetation change will also lead to a reduction in wind energy resources.
+
+
+\subsubsection{Recommendations for sustainable development of wind energy in China}
+\begin{itemize}
+  \item Set up more wind power stations in windy areas, large-scale wind power plants can be set up inland in the "three north" areas, and wind power stations can be set up in coastal areas with large wind power.
+  \item Attach importance to wind power generation, because the seasonality is not strong, wind power generation can provide stable electricity, so we can invest heavily in the development of wind power generation.
+  \item Reduce carbon emissions, promote green travel across the country, and reduce garbage pollution to slow down global warming.Reduce deforestation and minimize the impact of surface changes on wind energy resources.
+\end{itemize}
+
+\subsection{Solar}
+\subsubsection{Analysis of solar energy resources in China}
+
+China is vast, solar energy resources reserves are very rich, but China's solar energy resources distribution is very uneven, northwest high, southeast low distribution characteristics, China's solar energy resources are extremely rich areas include western Tibet, southeastern Xinjiang, northern Gansu and western Qinghai, the highest value center is located in Gar County, Tibet Autonomous Region, solar energy resources rich areas include southeast Tibet and southwest Xinjiang, central Gansu Province, eastern Qinghai Province, southern Ningxia District, northwestern Hebei Province, northern Shanxi Province, southern Inner Mongolia District, Areas rich in solar energy resources include Northeast China, Shandong Province, Henan Province, southeastern Hebei Province, southern Shanxi Province and Gansu Province, northern Xinjiang Province, northern Shaanxi Province, southern Guangdong Province and Fujian Province, Jiangsu Province and northern Anhui Province. The stability of solar energy resources in areas with relatively abundant solar energy resources is also relatively high, which is related to sunshine time, geographical factors, weather conditions, etc. 
+
+\subsubsection{Recommendations for sustainable development of solar energy in China}
+\begin{itemize}
+  \item It can vigorously support the solar energy industry, China's solar energy resources are extremely rich in the world, and they are also stable, and the cyclical changes are not much.
+  \item Choose to build solar power stations in areas with relatively abundant solar energy resources, because of the high stability of solar energy in these areas, it will also make the input-output ratio very considerable.
+  \item Protect the environment, reduce air pollution, and make solar energy resources not weakened.
+\end{itemize}
+
+\subsection{Conclusion}
+China's solar and wind energy are extremely abundant, of which solar energy can be used as the main energy source, and the overall economic benefits are higher.
+
+\section{Strengths and Weaknesses}
+\subsection{Strengths}
+\begin{itemize}
+\item \textbf{Representative}\\
+The four major economies of Europe, Germany, France, the United Kingdom and Italy were selected as the research objects, which are well representative.
+
+\item \textbf{Simple and clear}\\
+The load capacity, wind energy, and solar energy of four countries were selected as the research objects, which is clear and easy to understand.The data of the four countries are analyzed and compared, and the conclusions are drawn, which is simple and clear.
+
+\item \textbf{Practical}\\
+The results of the analysis can be used as a reference for the development of clean energy for China.
+\end{itemize}
+
+\subsection{Weaknesses}
+\begin{itemize}
+  \item \textbf{Energy prices are not taken into account}\\
+  Since there are few countries with price indicators, they are not considered in this article.
+  \item \textbf{The scope of the study was small}\\
+Only four representative countries were selected for the study, and not all European countries were studied.
+  \end{itemize}
+
+%\label{LastPage2}
+\addcontentsline{toc}{section}{References}
+\begin{thebibliography}{99}
+
+\bibitem{book3}
+Wang. Apply time series analysis. China University Press, 2005.7
+
+\bibitem{Wolpert1996}
+A statistical study on the impact of the novel coronavirus pneumonia epidemic on tourism in Qinghai Province——Based on the SARIMA model [C]//China
+Statistical Education Society.2020 (7th) National College Students Statistical Modeling Competition Excellent Paper Collection. [The publisher does not.]Detail,2020:16.DOI:10.26914/c.cnkihy.2020.045584.
+
+\bibitem{Giordano}
+Statistical measurement of the impact of the new crown epidemic on Hainan's tourism industry [C]//Chinese statistical pedagogy
+2020 (7th) National University Student Statistics Model Contest Outstanding Essays.[Publisher No
+Detail],2020:29.DOI:10.26914/c.cnkihy.2020.045597.
+\end{thebibliography}
+
+%\newpage
+%\lhead{\sffamily \team}
+%\rhead{\sffamily Appendices }
+
+\begin{appendices}
+
+\subsection*{Appendix A: Programmes Codes}
+
+Here are simulation programmes we used in our model as follow.
+
+
+\textcolor[rgb]{0.98,0.00,0.00}{\textbf{Input Python source:data\_visualization.py}}
+\lstinputlisting[language=Python]{./code/data_visualization.py}
+
+\textcolor[rgb]{0.98,0.00,0.00}{\textbf{Input Python source:data\_check.py}}
+\lstinputlisting[language=Python]{./code/data_check.py}
+
+\textcolor[rgb]{0.98,0.00,0.00}{\textbf{Input Python source:/model\_predict.py}}
+\lstinputlisting[language=Python]{./code/model_predict.py}
+\end{appendices}
+\end{document}
