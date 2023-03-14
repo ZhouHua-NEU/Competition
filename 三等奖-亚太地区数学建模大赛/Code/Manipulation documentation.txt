@@ -1,0 +1,18 @@
+Input：The picture given by the question. 
+Output：The time in the top left corner of the picture、Temperature of number one thermocouple and Temperature of number two thermocouple. 
+
+1.Import the pictures, use the os.listdir function to get the name of all the images in the folder and connect to the folder path to read all the images. 
+2.Cut the upper left text information section corp(1, 1, 102, 56) and save with the original file name. 
+3.Call Baidu PaddlePaddle text recognition API, ocr=PaddleOCR, PaddleOCR model for text recognition. The model inputs a picture, recognises and returns text information in the picture. 
+4.Batch read the text message images saved in Step 2. 
+5.The text information images were inputted into the PaddleOCR model one by one, and three strings were identified. 
+    result=ocr.ocr(image)
+    data1=int(result[0][0][1][0][1:-1])
+    data2=result[0][1][1][0][3:9]
+    data3=result[0][2][1][0][3:9]
+6.The text information is extracted by judgment. The first string intercepts the three digits of [1:4] directly as time, no further judgment is required, the second and third strings, starting with the character '丝',  are judged character by character backwards,
+    if the character is not a number, delete it, at the same time from the back to the front character one by one, delete the end of the string of non-numeric characters. 
+    while True: [data2[1:] if data2 the first character is not a number], [data2[:-1] if data2 the last character is not a number],
+                [data3[1:] if data3 the first character is not a number], [data3[:-1] if data3 the last character is not a number]
+7.Store the identified information into the dataframe. 
+8.The dataframe is stored in Attachment 2, indexed by the identified time, corresponding to the time in Attachment 2. 
